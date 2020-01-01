@@ -1,5 +1,5 @@
 {
-    "name": "saleksin/flarum-auth-google",
+    "name": "notanshuman/flarum-auth-google",
     "description": "Allow users to log in with Google.",
     "type": "flarum-extension",
     "keywords": ["authentication"],
