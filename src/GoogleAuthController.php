@@ -53,6 +53,7 @@ class GoogleAuthController implements RequestHandlerInterface
     {
         $conf = app('flarum.config');
         $redirectUri = $conf['url'] . "/auth/google";
+        $domain = $this->settings->trim(get('saleksin-auth-google.email_domain'));
 
         $provider = new Google([
             'clientId' => trim($this->settings->get('saleksin-auth-google.client_id')),
@@ -87,7 +88,8 @@ class GoogleAuthController implements RequestHandlerInterface
 
         /** @var GoogleUser $user */
         $user = $provider->getResourceOwner($token);
-
+       $userEmail = $user->getEmail();
+       if(stristr($userEmail,$domain)){
         return $this->response->make(
             'google', $user->getId(),
             function (Registration $registration) use ($user) {
@@ -98,5 +100,12 @@ class GoogleAuthController implements RequestHandlerInterface
                     ->setPayload($user->toArray());
             }
         );
+    }
+    else{
+        $session->remove('oauth2state');
+
+        throw new Exception('Invalid Domain');
+
+    }
     }
 }

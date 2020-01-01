@@ -19,7 +19,11 @@ export default class GoogleSettingsModal extends SettingsModal {
       <div className="Form-group">
         <label>{app.translator.trans('saleksin-auth-google.admin.google_settings.client_secret_label')}</label>
         <input className="FormControl" bidi={this.setting('saleksin-auth-google.client_secret')}/>
-      </div>
+      </div>,
+       <div className="Form-group">
+       <label>Email Domain</label>
+       <input className="FormControl" bidi={this.setting('saleksin-auth-google.email_domain')}/>
+     </div>
     ];
   }
 }
